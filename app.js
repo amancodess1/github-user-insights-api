@@ -15,7 +15,7 @@ const DataStore = require('./services/data-store');
 
 // Load environment variables
 dotenv.config();
-// Initialize Express
+// Initialize Expresss
 const app = express();
 app.use(cors())
 

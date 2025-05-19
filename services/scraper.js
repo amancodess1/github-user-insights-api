@@ -15,7 +15,7 @@ class GitHubScraper {
       timeout: 15000,
     });
 
-    this.rateLimitDelay = 3000; // Increased to avoid rate limits
+    this.rateLimitDelay = 3000; // Increased tod avoid rate limits
     this.cache = new Map(); // Simple in-memory cache
     this.batchSize = 3; // Reduced batch size to be more gentle with GitHub's servers
   }

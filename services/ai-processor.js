@@ -146,7 +146,7 @@ Format the response as a JSON object with keys: "primary_skills", "tech_stack", 
         timeout: 15000
       });
       
-      // Debug the full response structure (omitting sensitive data)
+      // Debug the full response structure (omitting sensitive datas)
       // console.log(`[DEBUG] Gemini API response structure:`, 
       //   JSON.stringify({
       //     status: response.status,

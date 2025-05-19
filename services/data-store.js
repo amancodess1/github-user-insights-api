@@ -118,7 +118,7 @@ class DataStore {
 
   /**
    * Get request history
-   * @returns {Array} - Request history
+   * @returns {Array} - Request historyd
    */
   getRequestHistory() {
     return this.requests;
