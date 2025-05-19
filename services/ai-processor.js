@@ -165,7 +165,7 @@ Format the response as a JSON object with keys: "primary_skills", "tech_stack", 
         throw new Error('Empty response from Gemini');
       }
       
-      // console.log(`[DEBUG] Gemini response content (first 100 chars): ${content.substring(0, 100)}...`);
+      // console.log(`[DEBUG]Gemini response content (first 100 chars): ${content.substring(0, 100)}...`);
       
       return content;
     } catch (error) {

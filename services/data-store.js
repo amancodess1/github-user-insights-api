@@ -64,7 +64,7 @@ class DataStore {
 
   /**
    * Log a new API request
-   * @param {string} query - Search query
+   * @param {string} query -  Search query
    * @param {number} pages - Number of pages
    * @returns {string} - Request ID
    */

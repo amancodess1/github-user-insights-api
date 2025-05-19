@@ -1,4 +1,4 @@
-# 1. Base image
+# 1.Base image
 FROM node:18
 
 # 2. Set working directory
