@@ -7,7 +7,6 @@ A backend service that scrapes GitHub user profiles from search results and proc
 - GitHub user profile scraping with pagination support
 - AI-powered analysis of developer profiles
 - REST API for accessing enriched developer data
-- Caching and request history for efficient operation
 - Dockerized setup for easy deployment
 
 ## Tech Stack
