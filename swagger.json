@@ -1,0 +1,266 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "GitHub User Insights API",
+      "description": "API for retrieving GitHub user profiles with AI-generated insights",
+      "contact": {
+        "name": "API Support"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/github/users": {
+        "get": {
+          "summary": "Search for GitHub users and get AI-enhanced profiles",
+          "description": "Searches GitHub for users matching the query and processes their profiles with AI to extract insights",
+          "parameters": [
+            {
+              "name": "query",
+              "in": "query",
+              "description": "Search query (e.g., 'javascript developer')",
+              "required": false,
+              "type": "string",
+              "default": "javascript developer"
+            },
+            {
+              "name": "pages",
+              "in": "query",
+              "description": "Number of GitHub search result pages to scrape",
+              "required": false,
+              "type": "integer",
+              "default": 3,
+              "minimum": 1,
+              "maximum": 5
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/GitHubUserSearchResponse"
+              }
+            },
+            "500": {
+              "description": "Internal server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "SearchRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query (e.g., 'javascript developer')",
+            "default": "javascript developer"
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Number of GitHub search result pages to scrape",
+            "default": 3,
+            "minimum": 1,
+            "maximum": 5
+          }
+        }
+      },
+      "GitHubUserSearchResponse": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "Unique ID for this request"
+          },
+          "query": {
+            "type": "string",
+            "description": "Search query used"
+          },
+          "count": {
+            "type": "integer",
+            "description": "Number of users found"
+          },
+          "results": {
+            "type": "array",
+            "description": "List of GitHub users with AI insights",
+            "items": {
+              "$ref": "#/definitions/GitHubUser"
+            }
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the results (cache or fresh)",
+            "enum": ["cache", "fresh"]
+          }
+        }
+      },
+      "GitHubUser": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "GitHub username"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "User's display name"
+          },
+          "bio": {
+            "type": "string",
+            "description": "User's biography"
+          },
+          "location": {
+            "type": "string",
+            "description": "User's location"
+          },
+          "profile_url": {
+            "type": "string",
+            "description": "URL to the user's GitHub profile"
+          },
+          "contribution_count": {
+            "type": "string",
+            "description": "Number of contributions"
+          },
+          "pinned_repositories": {
+            "type": "array",
+            "description": "List of pinned repositories",
+            "items": {
+              "$ref": "#/definitions/Repository"
+            }
+          },
+          "raw_data": {
+            "type": "object",
+            "description": "Additional raw data from the profile"
+          },
+          "ai_insights": {
+            "$ref": "#/definitions/AIInsights"
+          }
+        }
+      },
+      "Repository": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Repository name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Repository description"
+          },
+          "language": {
+            "type": "string",
+            "description": "Main programming language"
+          }
+        }
+      },
+      "AIInsights": {
+        "type": "object",
+        "properties": {
+          "primary_skills": {
+            "type": "string",
+            "description": "Comma-separated list of primary skills"
+          },
+          "tech_stack": {
+            "type": "string",
+            "description": "Technologies and frameworks the user is familiar with"
+          },
+          "experience_level": {
+            "type": "string",
+            "description": "Estimated experience level (beginner, intermediate, advanced, expert)"
+          },
+          "notable_contributions": {
+            "type": "string",
+            "description": "Notable contributions or focus areas"
+          },
+          "professional_summary": {
+            "type": "string",
+            "description": "Brief professional summary"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the AI analysis was performed"
+          }
+        }
+      },
+      "RequestHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "Number of requests"
+          },
+          "requests": {
+            "type": "array",
+            "description": "List of previous API requests",
+            "items": {
+              "$ref": "#/definitions/Request"
+            }
+          }
+        }
+      },
+      "Request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Request ID"
+          },
+          "query": {
+            "type": "string",
+            "description": "Search query"
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Number of pages requested"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the request was made"
+          },
+          "status": {
+            "type": "string",
+            "description": "Request status",
+            "enum": ["pending", "completed", "failed"]
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the request was completed"
+          },
+          "result_count": {
+            "type": "integer",
+            "description": "Number of results returned"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "status": {
+            "type": "string",
+            "description": "Error status",
+            "enum": ["error"]
+          }
+        }
+      }
+    }
+  }

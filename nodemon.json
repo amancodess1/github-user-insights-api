@@ -1,0 +1,5 @@
+{
+   
+    "ignore": ["data/requests.json","data/results.json","access.log"]
+  }
+  
